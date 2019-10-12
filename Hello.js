@@ -4,26 +4,41 @@ class Hello extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loanAmount: 500
+      loanAmount: 500,
+      interestRate:'',
+      monthlyPay:'',
+      displayMonthly: false
     };
   }
   handleChange = event => {
     this.setState({ loanAmount: event.target.value });
   };
 
-  handleSubmit(event) {
-    alert("A name was submitted: " + this.state.value);
+  displayMonthlyPay =async(event) => {
     event.preventDefault();
-  }
+    
+    const loanAmount=event.target.elements.loanAmount.value;
+    const loanDuration = event.target.elements.loanDuration.value;
+    const api_call = await fetch (`https://ftl-frontend-test.herokuapp.com/interest?amount=${loanAmount}&numMonths=${loanDuration}`);
+    const data = await api_call.json();
+    this.setState({
+       displayMonthly: !this.state.displayMonthly ,
+       interestRate:data.interestRate,
+       monthlyPay:data.monthlyPayment.amount,
+       })
+    console.log('hi')
+    console.log(data.interestRate);
+    console.log(data.monthlyPayment.amount);
+  };
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.displayMonthlyPay}>
           <label>
             Loan Amount:
             <input
               type="text"
-              name="name"
+              name="loanAmount"
               value={this.state.loanAmount}
               onChange={this.handleChange}
             />
@@ -31,7 +46,7 @@ class Hello extends React.Component {
           <br />
           <label>
             Loan Duration:
-            <input type="text" name="name" />
+            <input type="text" name="loanDuration" />
           </label>
           <br />
           <input type="submit" value="Submit" />
@@ -47,9 +62,13 @@ class Hello extends React.Component {
             id="myRange"
             onChange={this.handleChange}
           />
-          <p>
-            Value: <span id="demo" />
-          </p>
+
+          {this.state.displayMonthly ? (
+            <div>
+              <p>InterestRate:{this.state.interestRate}</p>
+              <p>Monthly Pay:{this.state.monthlyPay}</p>
+            </div>
+          ) : null}
         </div>
       </div>
     );
