@@ -5,15 +5,19 @@ class LoanCalculator extends React.Component {
     super(props);
     this.state = {
       loanAmount: 500,
+      loanDuration:'',
       interestRate: "",
       monthlyPay: "",
       displayMonthly: false
     };
-    
+    const localStore=[]
   }
 
   handleChange = event => {
-    this.setState({ loanAmount: event.target.value });
+    this.setState({ 
+    loanAmount: event.target.value,
+     });
+
   };
 
   
@@ -21,7 +25,7 @@ class LoanCalculator extends React.Component {
 
   displayMonthlyPay = async event => {
     event.preventDefault();
-
+    console.log(this.state.loanDuration)
     const loanAmount = event.target.elements.loanAmount.value;
     const loanDuration = event.target.elements.loanDuration.value;
     const api_call = await fetch(
@@ -34,15 +38,11 @@ class LoanCalculator extends React.Component {
       monthlyPay: data.monthlyPayment.amount
     });
     
-    const localStore={
-      item:{
-          loanAmount:this.state.loanAmount,
-          loanDuration:loanDuration
-          }
-    }
-    
+     
+    localStore.push({loanAmount:this.state.loanAmount,
+          loanDuration:loanDuration})
     localStorage.setItem('localStore',JSON.stringify(localStore));
-    localStorage.setItem("loanDurationArray", loanDurationArray);
+    
   };
   render() {
     
@@ -61,7 +61,8 @@ class LoanCalculator extends React.Component {
           <br />
           <label>
             Loan Duration:
-            <input type="text" name="loanDuration" />
+            <input type="text" name="loanDuration" 
+               />
           </label>
           <br />
           <input type="submit" value="Submit" />
