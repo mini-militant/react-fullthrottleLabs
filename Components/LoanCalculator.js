@@ -1,34 +1,41 @@
 import React from "react";
 
-class Hello extends React.Component {
+class LoanCalculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loanAmount: 500,
-      interestRate:'',
-      monthlyPay:'',
+      interestRate: "",
+      monthlyPay: "",
       displayMonthly: false
     };
+    
+  }
+  componentDidMount(){
+    const loanAmountLocalStorage=localStorage.getItem('loanAmount');
+    const loanDurationLocalStorage=localStorage.getItem('loanDuration');
+    
   }
   handleChange = event => {
     this.setState({ loanAmount: event.target.value });
   };
 
-  displayMonthlyPay =async(event) => {
+  displayMonthlyPay = async event => {
     event.preventDefault();
-    
-    const loanAmount=event.target.elements.loanAmount.value;
+
+    const loanAmount = event.target.elements.loanAmount.value;
     const loanDuration = event.target.elements.loanDuration.value;
-    const api_call = await fetch (`https://ftl-frontend-test.herokuapp.com/interest?amount=${loanAmount}&numMonths=${loanDuration}`);
+    const api_call = await fetch(
+      `https://ftl-frontend-test.herokuapp.com/interest?amount=${loanAmount}&numMonths=${loanDuration}`
+    );
     const data = await api_call.json();
     this.setState({
-       displayMonthly: !this.state.displayMonthly ,
-       interestRate:data.interestRate,
-       monthlyPay:data.monthlyPayment.amount,
-       })
-    console.log('hi')
-    console.log(data.interestRate);
-    console.log(data.monthlyPayment.amount);
+      displayMonthly: !this.state.displayMonthly,
+      interestRate: data.interestRate,
+      monthlyPay: data.monthlyPayment.amount
+    });
+    localStorage.setItem("loanAmount", this.state.loanAmount);
+    localStorage.setItem("loanDuration", loanDuration);
   };
   render() {
     return (
@@ -63,16 +70,21 @@ class Hello extends React.Component {
             onChange={this.handleChange}
           />
 
-          {this.state.displayMonthly ? (
+          {this.state.displayMonthly ? 
             <div>
               <p>InterestRate:{this.state.interestRate}</p>
               <p>Monthly Pay:{this.state.monthlyPay}</p>
             </div>
-          ) : null}
+           : null}
+           <h2>Items from local storage</h2>
+           {
+            
+              
+           }
         </div>
       </div>
     );
   }
 }
 
-export default Hello;
+export default LoanCalculator;

@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Hello from './Hello';
+import LoanCalculator from './Components/LoanCalculator';
 import './style.css';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: 'React'
-    };
-  }
+  
 
   render() {
     return (
       <div>
-        <Hello />
-        <p>
-          
-        </p>
+        <LoanCalculator />
+        
       </div>
     );
   }
