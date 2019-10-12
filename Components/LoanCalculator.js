@@ -11,14 +11,13 @@ class LoanCalculator extends React.Component {
     };
     
   }
-  componentDidMount(){
-    const loanAmountLocalStorage=localStorage.getItem('loanAmount');
-    const loanDurationLocalStorage=localStorage.getItem('loanDuration');
-    
-  }
+
   handleChange = event => {
     this.setState({ loanAmount: event.target.value });
   };
+
+  
+
 
   displayMonthlyPay = async event => {
     event.preventDefault();
@@ -30,14 +29,23 @@ class LoanCalculator extends React.Component {
     );
     const data = await api_call.json();
     this.setState({
-      displayMonthly: !this.state.displayMonthly,
+      displayMonthly: true,
       interestRate: data.interestRate,
       monthlyPay: data.monthlyPayment.amount
     });
-    localStorage.setItem("loanAmount", this.state.loanAmount);
-    localStorage.setItem("loanDuration", loanDuration);
+    
+    const localStore={
+      item:{
+          loanAmount:this.state.loanAmount,
+          loanDuration:loanDuration
+          }
+    }
+    
+    localStorage.setItem('localStore',JSON.stringify(localStore));
+    localStorage.setItem("loanDurationArray", loanDurationArray);
   };
   render() {
+    
     return (
       <div>
         <form onSubmit={this.displayMonthlyPay}>
@@ -77,8 +85,7 @@ class LoanCalculator extends React.Component {
             </div>
            : null}
            <h2>Items from local storage</h2>
-           {
-            
+           {      
               
            }
         </div>
