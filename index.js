@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import LoanCalculator from './Components/LoanCalculator';
-import './style.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/style.css';
 
 class App extends Component {
   

@@ -1,24 +1,24 @@
 import React from "react";
-
+import Form from "./Form";
+import HistoryBar from "./HistoryBar";
+import "../css/Form.css";
 class LoanCalculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loanAmount: 500,
-      loanDuration:'',
       interestRate: "",
       monthlyPay: "",
       displayMonthly: false
     };
-    const localStore=[]
+    const localStore = [];
   }
   handleChange = event => {
-    this.setState({  loanAmount: event.target.value });
+    this.setState({ loanAmount: event.target.value });
   };
 
   displayMonthlyPay = async event => {
     event.preventDefault();
-    console.log(this.state.loanDuration)
+    console.log(this.state.loanDuration);
     const loanAmount = event.target.elements.loanAmount.value;
     const loanDuration = event.target.elements.loanDuration.value;
     const api_call = await fetch(
@@ -29,59 +29,44 @@ class LoanCalculator extends React.Component {
       displayMonthly: true,
       interestRate: data.interestRate,
       monthlyPay: data.monthlyPayment.amount
-    });   
-  
+    });
+
     localStore.push({
-          loanAmount:this.state.loanAmount,
-          loanDuration:loanDuration})
-    localStorage.setItem('localStore',JSON.stringify(localStore));  
+      loanAmount: loanAmount,
+      loanDuration: loanDuration
+    });
+    localStorage.setItem("localStore", JSON.stringify(localStore));
   };
 
   render() {
-    
+    var ObjArray = Object.values(
+      JSON.parse(localStorage.getItem("localStore"))
+    );
+    var mappedItem = ObjArray.map(item => <li>item.loanAmount</li>);
+    console.log(mappedItem);
+
     return (
-      <div>
-        <form onSubmit={this.displayMonthlyPay}>
-          <label>
-            Loan Amount:
-            <input
-              type="text"
-              name="loanAmount"
-              value={this.state.loanAmount}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Loan Duration:
-            <input type="text" name="loanDuration" 
-               />
-          </label>
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
-
-        <div className="slidecontainer">
-          <input
-            type="range"
-            min="500"
-            max="5000"
-            value={this.state.loanAmount}
-            className="slider"
-            id="myRange"
-            onChange={this.handleChange}
-          />
-
-          {this.state.displayMonthly ? 
+      <div className="wrapper">
+        <div className="main">
+        <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <h2>Items from local storage</h2>
+          <HistoryBar />
+          </div>
+          <div className="col-sm-8 form-container">
+          <Form displayMonthlyPay={this.displayMonthlyPay} />
+          {this.state.displayMonthly ? (
             <div>
               <p>InterestRate:{this.state.interestRate}</p>
               <p>Monthly Pay:{this.state.monthlyPay}</p>
             </div>
-           : null}
-           <h2>Items from local storage</h2>
-           {      
-              
-           }
+          ) : null}
+
+          
+          </div>
+          </div>
+          </div>
         </div>
       </div>
     );
