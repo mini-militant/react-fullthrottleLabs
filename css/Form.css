@@ -20,6 +20,10 @@
   padding-left: 50px;
 }
 
+.label{
+  color:white;
+}
+
 input[type="text"] {
   background-color: transparent;
   border: 0;
