@@ -40,11 +40,7 @@ class LoanCalculator extends React.Component {
   };
 
   render() {
-    var ObjArray = Object.values(
-      JSON.parse(localStorage.getItem("localStore"))
-    );
-    var mappedItem = ObjArray.map(item => <li>item.loanAmount</li>);
-    console.log(mappedItem);
+    
 
     return (
       <div className="wrapper">
