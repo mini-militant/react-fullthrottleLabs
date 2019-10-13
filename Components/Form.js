@@ -22,9 +22,8 @@ class Form extends React.Component {
   render() {
     return (
       <div>
-        
-          <div className='row'>
-          <div className='col-sm-4 history'>
+          
+          <div className="sidebar">
             <MenuList>
               {Object.values(
                 JSON.parse(localStorage.getItem("localStore"))
@@ -42,8 +41,8 @@ class Form extends React.Component {
                 </MenuItem>
               ))}
             </MenuList>
-          </div>
-            <div className='cols-sm-8'>
+            </div>
+            
             <form onSubmit={this.props.displayMonthlyPay}>
               <label className="label">
                 Loan Amount :
@@ -79,8 +78,8 @@ class Form extends React.Component {
               <button>Check</button>
             </form>
             </div>
-          </div>
-        </div>
+          
+        
     );
   }
 }

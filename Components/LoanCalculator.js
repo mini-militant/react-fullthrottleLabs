@@ -49,13 +49,11 @@ class LoanCalculator extends React.Component {
     return (
       <div className="wrapper">
         <div className="main">
-          <div className="container"> 
-          <div className='row'>
-          
-          <div className='col form-container'>         
+         
+          <div className="form-container">      
             <Form displayMonthlyPay={this.displayMonthlyPay} />
             {this.state.displayMonthly ? (
-              <div >
+              <div className="label" >
                 <br />
                 <p>Interest Rate:{this.state.interestRate}</p>
                 <br />
@@ -63,10 +61,10 @@ class LoanCalculator extends React.Component {
               </div>
             ) : null}
             </div>
+            
             </div>
           </div>
-        </div>
-      </div>
+        
     );
   }
 }
