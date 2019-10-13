@@ -11,6 +11,7 @@
     "react-dom": "16.10.2"
   },
   "scripts": {
+    "pretest":"npm install",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
