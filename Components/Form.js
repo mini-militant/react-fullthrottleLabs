@@ -1,16 +1,32 @@
 import React from "react";
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Divider from '@material-ui/core/Drawer';
+import HistoryBar from './HistoryBar'
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loanAmount: 500,
-      loanDuration: ""
+      loanDuration:6
     };
   }
-  handleChange = event => {
+  handleLoanAmountChange = event => {
     this.setState({ loanAmount: event.target.value });
   };
+
+  handleLoanDurationChange = event => {
+    this.setState({ loanDuration: event.target.value });
+  };
+
+  setLoanVariables=()=>{
+    console.log('hiform history')
+    this.setState({
+      loanAmount:700,
+      loanDuration:8
+    })
+  }
   render() {
     return (
       <div>
@@ -21,7 +37,7 @@ class Form extends React.Component {
               type="text"
               name="loanAmount"
               value={this.state.loanAmount}
-              onChange={this.handleChange}
+              onChange={this.handleLoanAmountChange}
             />
             <div className="slidecontainer">
               <input
@@ -31,18 +47,31 @@ class Form extends React.Component {
                 value={this.state.loanAmount}
                 className="slider"
                 id="myRange"
-                onChange={this.handleChange}
+                onChange={this.handleLoanAmountChange}
               />
             </div>
           </label>
           <br />
           <label className="label">
             Loan Duration :
-            <input type="text" name="loanDuration" />
+            <input type="text" name="loanDuration" value={this.state.loanDuration}
+             onChange={this.handleLoanDurationChange} />
           </label>
           <br />
-          <input type="submit" value="Submit" />
+          <button>Check</button>
         </form>
+        <MenuList>
+        {     
+              Object.values(JSON.parse(localStorage.getItem('localStore'))).
+              map(item=>
+              <MenuItem onClick={this.setLoanVariables}>
+              LoanAmount : {item.loanAmount} <br/>
+              LoanDuration : {item.loanDuration}             
+              </MenuItem>)
+              
+           }
+           
+        </MenuList>
       </div>
     );
   }

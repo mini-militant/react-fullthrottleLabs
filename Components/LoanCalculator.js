@@ -53,7 +53,7 @@ class LoanCalculator extends React.Component {
         <div className="row">
           <div className="col-sm-4">
             <h2>Items from local storage</h2>
-          <HistoryBar />
+          
           </div>
           <div className="col-sm-8 form-container">
           <Form displayMonthlyPay={this.displayMonthlyPay} />
