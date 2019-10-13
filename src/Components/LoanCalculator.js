@@ -11,7 +11,7 @@ class LoanCalculator extends React.Component {
       monthlyPay: "",
       displayMonthly: false
     };
-    const localStore = [];
+    this.localStore = [];
   }
   handleChange = event => {
     this.setState({ loanAmount: event.target.value });
@@ -32,11 +32,11 @@ class LoanCalculator extends React.Component {
       monthlyPay: data.monthlyPayment.amount
     });
 
-    localStore.push({
+    this.localStore.push({
       loanAmount: loanAmount,
       loanDuration: loanDuration
     });
-    localStorage.setItem("localStore", JSON.stringify(localStore));
+    localStorage.setItem("localStore", JSON.stringify(this.localStore));
   };
 
   render() {
