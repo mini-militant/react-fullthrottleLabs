@@ -23,6 +23,9 @@
 .label{
   color:white;
 }
+.history{
+  background-color: whitesmoke;
+}
 
 input[type="text"] {
   background-color: transparent;

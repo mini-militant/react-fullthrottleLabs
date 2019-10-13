@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "./Form";
-import HistoryBar from "./HistoryBar";
+
 import "../css/Form.css";
 
 class LoanCalculator extends React.Component {
@@ -49,26 +49,21 @@ class LoanCalculator extends React.Component {
     return (
       <div className="wrapper">
         <div className="main">
-        <div className="container">
-        <div className="row">
-          <div className="col-sm-4">
-            <h2>Items from local storage</h2>
+          <div className="container"> 
+          <div className='row'>
           
-          </div>
-          <div className="col-sm-8 form-container">
-          <Form displayMonthlyPay={this.displayMonthlyPay} />
-          {this.state.displayMonthly ? (
-            <div className="label">
-              <br/>
-              <p>Interest Rate:{this.state.interestRate}</p>
-              <br/>
-              <p>Monthly Pay:{this.state.monthlyPay}</p>
+          <div className='col form-container'>         
+            <Form displayMonthlyPay={this.displayMonthlyPay} />
+            {this.state.displayMonthly ? (
+              <div >
+                <br />
+                <p>Interest Rate:{this.state.interestRate}</p>
+                <br />
+                <p>Monthly Pay:{this.state.monthlyPay}</p>
+              </div>
+            ) : null}
             </div>
-          ) : null}
-
-          
-          </div>
-          </div>
+            </div>
           </div>
         </div>
       </div>
